@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendWise — Finance Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <div class="topbar">
+      <div>
+        <div class="brand">Spend<span>Wise</span> 💸</div>
+        <div class="tagline">
+          your money, but make it honest &nbsp;
+          <span class="db-badge" id="db-badge">● connecting...</span>
+        </div>
+      </div>
+      <div class="top-right">
+        <div class="month-badge" id="month-label">Loading...</div>
+        <button class="clear-all-btn" onclick="clearAllData()">🗑 clear all data</button>
+      </div>
+    </div>
+
+    <div class="summary-row">
+      <div class="sum-card">
+        <div class="sum-label">💰 income</div>
+        <div class="sum-val green" id="total-income">Rp 0</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-label">🔥 spent</div>
+        <div class="sum-val red" id="total-expense">Rp 0</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-label">🧾 balance</div>
+        <div class="sum-val purple" id="balance">Rp 0</div>
+      </div>
+    </div>
+
+    <div class="roast-box" id="roast-box">
+      <div class="roast-icon" id="roast-icon">🤖</div>
+      <div>
+        <div class="roast-text" id="roast-text">Loading your financial data... brace yourself 👀</div>
+        <div class="roast-sub"  id="roast-sub">connecting to database...</div>
+      </div>
+    </div>
+
+    <div class="main-grid">
+
+      <div class="card">
+        <div class="card-title">➕ add transaction</div>
+        <div class="type-toggle">
+          <button class="type-btn active-income" id="btn-income"  onclick="setType('income')">+ Income</button>
+          <button class="type-btn"               id="btn-expense" onclick="setType('expense')">− Expense</button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">description</label>
+          <input type="text" id="tx-desc" placeholder="e.g. Salary, Starbucks..." maxlength="50"
+                 onkeydown="if(event.key==='Enter') addTx()">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">amount (Rp)</label>
+            <input type="number" id="tx-amount" placeholder="50000" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">category</label>
+            <select id="tx-cat"></select>
+          </div>
+        </div>
+        <button class="submit-btn income-mode" id="submit-btn" onclick="addTx()">+ Add Income</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📋 transactions</div>
+        <div class="tx-list" id="tx-list">
+          <div class="empty-state">Loading transactions...</div>
+        </div>
+      </div>
+
+      <div class="card full">
+        <div class="card-title">📊 spending breakdown</div>
+        <div class="chart-area">
+          <div class="donut-side">
+            <div class="chart-wrap">
+              <canvas id="donut-chart" role="img" aria-label="Spending by category"></canvas>
+            </div>
+            <div class="cat-legend" id="cat-legend"></div>
+          </div>
+          <div class="bar-side">
+            <div class="chart-wrap">
+              <canvas id="bar-chart" role="img" aria-label="Income vs expense"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
